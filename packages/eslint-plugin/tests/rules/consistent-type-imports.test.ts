@@ -230,6 +230,26 @@ ruleTester.run('consistent-type-imports', rule, {
       const a: typeof Default = Default;
       const b: typeof Rest = Rest;
     `,
+    {
+      // type-imports-combine
+      code: `
+import Default, { Type } from 'module';
+const a = new Default();
+const b: Type = '';
+      `,
+      options: [{ prefer: 'type-imports-combine' }],
+    },
+    {
+      // type-imports-combine
+      // type only
+      code: `
+import type { Type } from 'module';
+import type Default from 'module';
+const a: Default = '';
+const b: Type = '';
+      `,
+      options: [{ prefer: 'type-imports-combine' }],
+    },
   ],
   invalid: [
     {
@@ -1211,6 +1231,78 @@ const a: Default = '';
         {
           messageId: 'aImportIsOnlyTypes',
           line: 2,
+          column: 1,
+        },
+      ],
+    },
+    {
+      // type-imports-combine
+      code: `
+import Default from 'module';
+import type { Type } from 'module';
+const a = new Default();
+const b: Type = '';
+      `,
+      options: [{ prefer: 'type-imports-combine' }],
+      output: `
+import Default, { Type } from 'module';
+
+const a = new Default();
+const b: Type = '';
+      `,
+      errors: [
+        {
+          messageId: 'mustBeOneImport',
+          line: 3,
+          column: 1,
+        },
+      ],
+    },
+    {
+      // type-imports-combine
+      // type only
+      code: `
+import Default, { Type } from 'module';
+const a: Default = '';
+const b: Type = '';
+      `,
+      options: [{ prefer: 'type-imports-combine' }],
+      output: `
+import type { Type } from 'module';
+import type Default from 'module';
+const a: Default = '';
+const b: Type = '';
+      `,
+      errors: [
+        {
+          messageId: 'typeOverValue',
+          line: 2,
+          column: 1,
+        },
+      ],
+    },
+
+
+    {
+      // type-imports-combine
+      // empty {}
+      code: noFormat`
+import Default, {} from 'module';
+import type { Type } from 'module';
+const a = new Default();
+const b: Type = '';
+      `,
+      options: [{ prefer: 'type-imports-combine' }],
+      output: `
+import Default, { Type } from 'module';
+
+const a = new Default();
+const b: Type = '';
+      `,
+      errors: [
+        {
+          messageId: 'mustBeOneImport',
+          line: 3,
           column: 1,
         },
       ],
