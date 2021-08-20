@@ -227,6 +227,7 @@ module.exports = {
       rules: {
         // specifically for rules - default exports makes the tooling easier
         'import/no-default-export': 'off',
+        '@typescript-eslint/internal/valid-rule-meta': 'error',
       },
     },
     // plugin rule tests
