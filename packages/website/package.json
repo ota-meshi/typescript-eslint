@@ -27,14 +27,14 @@
     "json5": "^2.2.0",
     "konamimojisplosion": "^0.5.1",
     "lzstring.ts": "^2.0.2",
-    "react": "^17.0.2",
+    "react": "^18.1.0",
     "react-dom": "^17.0.2",
     "remark-docusaurus-tabs": "^0.2.0",
     "typescript": "*"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^2.0.0-beta.13",
-    "@types/react": "^17.0.34",
+    "@types/react": "^18.0.12",
     "@types/react-helmet": "^6.1.4",
     "@types/react-router-dom": "^5.3.2",
     "copy-webpack-plugin": "^9.1.0",
